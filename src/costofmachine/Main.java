@@ -97,7 +97,7 @@ public class Main extends JFrame {
 			}
 		});
 		
-		JLabel lblPlikTekstowyZ = new JLabel("<html> Plik tekstowy z wynikiem analizy zostanie zapisany na dysku sieciowym //dataserver/Logistyka/Analiza maszyn </html>");
+		JLabel lblPlikTekstowyZ = new JLabel("<html> Plik tekstowy z wynikiem analizy zostanie zapisany na dysku sieciowym //dataserver/Logistyka/Raporty/Analiza maszyn </html>");
 		lblPlikTekstowyZ.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPlikTekstowyZ.setToolTipText("");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

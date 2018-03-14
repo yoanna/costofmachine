@@ -51,13 +51,13 @@ public class countCost {
 				
 				if(komentarz.equals("")) {
 					sql_a = sql_a + " where NrMaszyny = '"+nrMaszyny+"' order by projectnummer desc";
-					sql_d = sql_d + " where concat(bestelling.AFDELING, \"/\", bestelling.AFDELINGSEQ) like '"+nrMaszyny+"%' " +
+					sql_d = sql_d + " where concat(bestelling.AFDELING, \"/\", bestelling.AFDELINGSEQ) like '"+nrMaszyny+"%' and bestelling.leverancier > 500 " +
 							"group by munt";
 				}
 				else {
 					sql_a = sql_a + " where NrMaszyny = '"+nrMaszyny+"' or NrMaszyny like '"+komentarz+"' order by projectnummer desc";
-					sql_d = sql_d + " where concat(bestelling.AFDELING, \"/\", bestelling.AFDELINGSEQ) like '"+nrMaszyny+"%' or concat(bestelling.AFDELING, \"/\", bestelling.AFDELINGSEQ) like '"+komentarz+"%' " +
-							"group by munt";
+					sql_d = sql_d + " where (concat(bestelling.AFDELING, \"/\", bestelling.AFDELINGSEQ) like '"+nrMaszyny+"%' or concat(bestelling.AFDELING, \"/\", bestelling.AFDELINGSEQ) like '"+komentarz+"%') and bestelling.leverancier > 500 " +
+							" group by munt";
 					sql_b = sql_b + " or cfproject like '"+komentarz+"'";
 					sql_e = sql_e + " or cfproject like '"+komentarz+"'";
 					sql_f = sql_f + " or cfproject like '"+komentarz+"'";
@@ -218,7 +218,7 @@ public class countCost {
 				st01.close();
 				
 				String sql_d = "select sum(bestellingdetail.suma), bestellingdetail.munt from bestelling " + 
-						"join bestellingdetail on bestelling.leverancier = bestellingdetail.leverancier and bestelling.ORDERNUMMER = bestellingdetail.ORDERNUMMER where bestelling.AFDELING= "+nrGrupy+" group by munt";
+						"join bestellingdetail on bestelling.leverancier = bestellingdetail.leverancier and bestelling.ORDERNUMMER = bestellingdetail.ORDERNUMMER where bestelling.AFDELING= "+nrGrupy+" and bestelling.leverancier > 500  group by munt";
 				String sql_b = "select (100*sum(werktijdh)+floor(sum(werktijdm60)/60) + 10*mod(sum(werktijdm60), 60)/6) as montage from werkuren where werkpost NOT IN ('KM01', 'KE01', 'CNC') and (cfproject like '"+nrGrupy+"/%')";
 				String sql_e = "select (100*sum(werktijdh)+floor(sum(werktijdm60)/60) + 10*mod(sum(werktijdm60), 60)/6) as montage from werkuren where werkpost = 'KM01' and (cfproject like '"+nrGrupy+"/%')";
 				String sql_f = "select (100*sum(werktijdh)+floor(sum(werktijdm60)/60) + 10*mod(sum(werktijdm60), 60)/6) as montage from werkuren where werkpost = 'KE01' and (cfproject like '"+nrGrupy+"/%')";
