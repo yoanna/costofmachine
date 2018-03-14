@@ -8,7 +8,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 
 public class countCost {
 	
@@ -176,7 +175,7 @@ public class countCost {
 			ResultSet rs00 = st00.executeQuery(sql_00);
 			while(rs00.next()) {
 				String nrGrupy = rs00.getString(1);
-				String nazwa = rs00.getString(1);
+				String nazwa = rs00.getString(2);
 				double material = 0;
 				double workprice = 0;
 				double montage = 0;
@@ -230,7 +229,7 @@ public class countCost {
 				Statement b = conn.createStatement();
 				ResultSet rs1 = b.executeQuery(sql_b);
 				while(rs1.next()) {
-					montage+=rs1.getDouble(1);
+					workprice+=rs1.getDouble(1);
 				}
 				rs1.close();
 				b.close();
